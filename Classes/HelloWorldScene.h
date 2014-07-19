@@ -17,6 +17,15 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+    
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+    template<typename T>
+    std::string to_string(const T& t) {
+        std::ostringstream os;
+        os << t;
+        return os.str();
+    }
+#endif
 };
 
 #endif // __HELLOWORLD_SCENE_H__

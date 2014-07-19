@@ -80,10 +80,10 @@
 		6C10FF131976CF5100EF2675 /* ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEF91976CF5000EF2675 /* ground.png */; };
 		6C10FF141976CF5100EF2675 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFA1976CF5000EF2675 /* HelloWorld.png */; };
 		6C10FF151976CF5100EF2675 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFA1976CF5000EF2675 /* HelloWorld.png */; };
-		6C10FF161976CF5100EF2675 /* sprites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFB1976CF5100EF2675 /* sprites.plist */; };
-		6C10FF171976CF5100EF2675 /* sprites.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFB1976CF5100EF2675 /* sprites.plist */; };
-		6C10FF181976CF5100EF2675 /* sprites.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFC1976CF5100EF2675 /* sprites.png */; };
-		6C10FF191976CF5100EF2675 /* sprites.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFC1976CF5100EF2675 /* sprites.png */; };
+		6C10FF161976CF5100EF2675 /* bird.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFB1976CF5100EF2675 /* bird.plist */; };
+		6C10FF171976CF5100EF2675 /* bird.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFB1976CF5100EF2675 /* bird.plist */; };
+		6C10FF181976CF5100EF2675 /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFC1976CF5100EF2675 /* bird.png */; };
+		6C10FF191976CF5100EF2675 /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFC1976CF5100EF2675 /* bird.png */; };
 		6C10FF1A1976CF5100EF2675 /* top_pipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFD1976CF5100EF2675 /* top_pipe.png */; };
 		6C10FF1B1976CF5100EF2675 /* top_pipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C10FEFD1976CF5100EF2675 /* top_pipe.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -293,8 +293,8 @@
 		6C10FEF81976CF5000EF2675 /* game_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_over.png; sourceTree = "<group>"; };
 		6C10FEF91976CF5000EF2675 /* ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ground.png; sourceTree = "<group>"; };
 		6C10FEFA1976CF5000EF2675 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
-		6C10FEFB1976CF5100EF2675 /* sprites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sprites.plist; sourceTree = "<group>"; };
-		6C10FEFC1976CF5100EF2675 /* sprites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprites.png; sourceTree = "<group>"; };
+		6C10FEFB1976CF5100EF2675 /* bird.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bird.plist; sourceTree = "<group>"; };
+		6C10FEFC1976CF5100EF2675 /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird.png; sourceTree = "<group>"; };
 		6C10FEFD1976CF5100EF2675 /* top_pipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_pipe.png; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -503,8 +503,8 @@
 				6C10FEF81976CF5000EF2675 /* game_over.png */,
 				6C10FEF91976CF5000EF2675 /* ground.png */,
 				6C10FEFA1976CF5000EF2675 /* HelloWorld.png */,
-				6C10FEFB1976CF5100EF2675 /* sprites.plist */,
-				6C10FEFC1976CF5100EF2675 /* sprites.png */,
+				6C10FEFB1976CF5100EF2675 /* bird.plist */,
+				6C10FEFC1976CF5100EF2675 /* bird.png */,
 				6C10FEFD1976CF5100EF2675 /* top_pipe.png */,
 			);
 			name = Resources;
@@ -682,7 +682,7 @@
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				6C10FF001976CF5100EF2675 /* bottom_pipe.png in Resources */,
-				6C10FF161976CF5100EF2675 /* sprites.plist in Resources */,
+				6C10FF161976CF5100EF2675 /* bird.plist in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				6C10FF041976CF5100EF2675 /* CloseSelected.png in Resources */,
@@ -691,7 +691,7 @@
 				6C10FF0E1976CF5100EF2675 /* fonts in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
-				6C10FF181976CF5100EF2675 /* sprites.png in Resources */,
+				6C10FF181976CF5100EF2675 /* bird.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
@@ -714,8 +714,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C10FF131976CF5100EF2675 /* ground.png in Resources */,
-				6C10FF191976CF5100EF2675 /* sprites.png in Resources */,
-				6C10FF171976CF5100EF2675 /* sprites.plist in Resources */,
+				6C10FF191976CF5100EF2675 /* bird.png in Resources */,
+				6C10FF171976CF5100EF2675 /* bird.plist in Resources */,
 				6C10FEFF1976CF5100EF2675 /* .DS_Store in Resources */,
 				6C10FF0F1976CF5100EF2675 /* fonts in Resources */,
 				6C10FF0B1976CF5100EF2675 /* flappybird2.png in Resources */,
