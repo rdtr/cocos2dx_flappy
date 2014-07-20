@@ -69,7 +69,7 @@ bool HelloWorld::init()
     //pipe setup
     topPipeSprite = Sprite::create("top_pipe.png");
     bottomPipeSprite = Sprite::create("bottom_pipe.png");
-    topPipeSprite->setPosition(visibleSize.width/2, 600);
+    topPipeSprite->setPosition(visibleSize.width + topPipeSprite->getContentSize().width/2, 600);
     this->positionBottomPipe();
     this->addChild(topPipeSprite);
     this->addChild(bottomPipeSprite);
@@ -82,6 +82,7 @@ bool HelloWorld::init()
 void HelloWorld::update(float delata) {
     Vec2 curPos0 = groundSprite0->getPosition();
     Vec2 curPos1 = groundSprite1->getPosition();
+    Vec2 pipePos = topPipeSprite->getPosition();
     if (curPos0.x < -groundSprite0->getContentSize().width/2) {
         groundSprite0->setPosition(Vec2(curPos1.x + groundSprite0->getContentSize().width, curPos0.y));
         return;
@@ -90,8 +91,14 @@ void HelloWorld::update(float delata) {
         groundSprite1->setPosition(Vec2(curPos0.x + groundSprite1->getContentSize().width, curPos1.y));
         return;
     }
+    if (pipePos.x < -topPipeSprite->getContentSize().width / 2) {
+        topPipeSprite->setPosition(Vec2(visibleSize.width + topPipeSprite->getContentSize().width/2, 500 + arc4random() % 300));
+        return;
+    }
     groundSprite0->setPosition(Vec2(curPos0.x - 1, curPos0.y));
     groundSprite1->setPosition(Vec2(curPos1.x - 1, curPos1.y));
+    topPipeSprite->setPosition(Vec2(pipePos.x - 1, pipePos.y));
+    this->positionBottomPipe();
 }
 
 void HelloWorld::positionBottomPipe(){
