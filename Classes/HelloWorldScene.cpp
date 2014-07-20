@@ -18,12 +18,16 @@ bool HelloWorld::init()
         return false;
     }
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
+    visibleSize = Director::getInstance()->getVisibleSize();
     
     // Ground setup
-    Sprite *groundSprite = Sprite::create("ground.png");
-    this->addChild(groundSprite);
-    groundSprite->setPosition(Vec2(308, 84)); //half of image size
+    groundSprite0 = Sprite::create("ground.png");
+    this->addChild(groundSprite0);
+    groundSprite0->setPosition(Vec2(groundSprite0->getContentSize().width/2.0 , groundSprite0->getContentSize().height/2));
+    
+    groundSprite1 = Sprite::create("ground.png");
+    this->addChild(groundSprite1);
+    groundSprite1->setPosition(Vec2(visibleSize.width + groundSprite1->getContentSize().width/2.0 -10, groundSprite1->getContentSize().height/2));
     
     // SkyGround setup
     Sprite *skySprite0 = Sprite::create("flappy_background.png");
@@ -62,6 +66,33 @@ bool HelloWorld::init()
     birdSprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 + 80));
     this->addChild(birdSprite);
     
+    //pipe setup
+    topPipeSprite = Sprite::create("top_pipe.png");
+    bottomPipeSprite = Sprite::create("bottom_pipe.png");
+    topPipeSprite->setPosition(visibleSize.width/2, visibleSize.height - 50);
+
+    
+    
+    this->scheduleUpdate();
+    
     return true;
 }
 
+void HelloWorld::update(float delata) {
+    Vec2 curPos0 = groundSprite0->getPosition();
+    Vec2 curPos1 = groundSprite1->getPosition();
+    if (curPos0.x < -groundSprite0->getContentSize().width/2) {
+        groundSprite0->setPosition(Vec2(curPos1.x + groundSprite0->getContentSize().width, curPos0.y));
+        return;
+    }
+    if (curPos1.x <= -groundSprite1->getContentSize().width/2) {
+        groundSprite1->setPosition(Vec2(curPos0.x + groundSprite1->getContentSize().width, curPos1.y));
+        return;
+    }
+    groundSprite0->setPosition(Vec2(curPos0.x - 1, curPos0.y));
+    groundSprite1->setPosition(Vec2(curPos1.x - 1, curPos1.y));
+}
+
+void HelloWorld::positionBottomPipe(){
+    //bottomPiPeSprite->setPosition(Vec2(topPipeSprite->getPosition);
+}

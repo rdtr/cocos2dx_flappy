@@ -26,6 +26,14 @@ public:
         return os.str();
     }
 #endif
+    
+    void update(float delta);
+    
+    cocos2d::Sprite *groundSprite0, *groundSprite1, *topPipeSprite, *bottomPipeSprite;
+    cocos2d::Size visibleSize;
+    
+private:
+    void positionBottomPipe();
 };
 
 #endif // __HELLOWORLD_SCENE_H__
