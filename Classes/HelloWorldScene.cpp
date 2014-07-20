@@ -5,9 +5,9 @@ USING_NS_CC;
 Scene* HelloWorld::createScene()
 {
     auto scene = Scene::createWithPhysics();
-    scene->getPhysicsWorld()->setGravity(Vec2(0, -300));
+    scene->getPhysicsWorld()->setGravity(Vec2(0, -50));
     scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
-    scene->getPhysicsWorld()->setSpeed(1.5);
+    scene->getPhysicsWorld()->setSpeed(3.0);
     
     auto layer = HelloWorld::create();
     scene->addChild(layer);
@@ -72,6 +72,9 @@ bool HelloWorld::init()
 
     auto birdBody = PhysicsBody::createCircle(17.0);
     birdBody->setDynamic(true);
+    birdBody->setMass(1.0f);
+    birdBody->setVelocity(Vec2(4.0f, 2.0f));
+    birdBody->setVelocityLimit(50);
     birdSprite->setPhysicsBody(birdBody);
     
     //pipe setup
@@ -82,6 +85,17 @@ bool HelloWorld::init()
     this->addChild(topPipeSprite);
     this->addChild(bottomPipeSprite);
     
+    //setup touch listener
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+
+    listener->onTouchBegan = [birdBody](Touch *touch, Event *event){
+        birdBody->applyImpulse(Vec2(0, 90.0f));
+        log("touch detected!");
+        return true;
+    };
+    
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
     this->scheduleUpdate();
     
     return true;
@@ -103,12 +117,12 @@ void HelloWorld::update(float delata) {
         topPipeSprite->setPosition(Vec2(visibleSize.width + topPipeSprite->getContentSize().width/2, 500 + arc4random() % 300));
         return;
     }
-    groundSprite0->setPosition(Vec2(curPos0.x - 1, curPos0.y));
-    groundSprite1->setPosition(Vec2(curPos1.x - 1, curPos1.y));
-    topPipeSprite->setPosition(Vec2(pipePos.x - 1, pipePos.y));
+    groundSprite0->setPosition(Vec2(curPos0.x - 2, curPos0.y));
+    groundSprite1->setPosition(Vec2(curPos1.x - 2, curPos1.y));
+    topPipeSprite->setPosition(Vec2(pipePos.x - 2, pipePos.y));
     this->positionBottomPipe();
 }
 
 void HelloWorld::positionBottomPipe(){
-    bottomPipeSprite->setPosition(Vec2(topPipeSprite->getPosition().x, topPipeSprite->getPosition().y - 650));
+    bottomPipeSprite->setPosition(Vec2(topPipeSprite->getPosition().x, topPipeSprite->getPosition().y - 660));
 }
