@@ -6,7 +6,7 @@ Scene* HelloWorld::createScene()
 {
     auto scene = Scene::createWithPhysics();
     scene->getPhysicsWorld()->setGravity(Vec2(0, -50));
-    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    //scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     scene->getPhysicsWorld()->setSpeed(3.0);
     
     auto layer = HelloWorld::create();
@@ -21,6 +21,7 @@ bool HelloWorld::init()
     {
         return false;
     }
+    this->isGameOver = false;
     
     visibleSize = Director::getInstance()->getVisibleSize();
     
@@ -35,9 +36,11 @@ bool HelloWorld::init()
     
     auto groundbody0 = PhysicsBody::createBox(groundSprite0->getContentSize());
     groundbody0->setDynamic(false);
+    groundbody0->setContactTestBitmask(true);
     groundSprite0->setPhysicsBody(groundbody0);
     auto groundbody1 = PhysicsBody::createBox(groundSprite1->getContentSize());
     groundbody1->setDynamic(false);
+    groundbody1->setContactTestBitmask(true);
     groundSprite1->setPhysicsBody(groundbody1);
     
     // SkyGround setup
@@ -82,6 +85,7 @@ bool HelloWorld::init()
     birdBody->setMass(1.0f);
     birdBody->setVelocity(Vec2(4.0f, 2.0f));
     birdBody->setVelocityLimit(50);
+    birdBody->setContactTestBitmask(true);
     birdSprite->setPhysicsBody(birdBody);
     
     //pipe setup
@@ -92,8 +96,10 @@ bool HelloWorld::init()
     auto pipebody0 = PhysicsBody::createBox(topPipeSprite->getContentSize());
     pipebody0->setDynamic(false);
     topPipeSprite->setPhysicsBody(pipebody0);
+    pipebody0->setContactTestBitmask(true);
     auto pipebody1 = PhysicsBody::createBox(bottomPipeSprite->getContentSize());
     pipebody1->setDynamic(false);
+    pipebody1->setContactTestBitmask(true);
     bottomPipeSprite->setPhysicsBody(pipebody1);
     
     this->positionBottomPipe();
@@ -104,13 +110,35 @@ bool HelloWorld::init()
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
 
-    listener->onTouchBegan = [birdBody](Touch *touch, Event *event){
-        birdBody->applyImpulse(Vec2(0, 90.0f));
+    listener->onTouchBegan = [=](Touch *touch, Event *event){
+        if (!this->isGameOver) {
+            birdBody->applyImpulse(Vec2(0, 90.0f));
+        }
         log("touch detected!");
         return true;
     };
     
+    //setup collision listener
+    auto plistener = EventListenerPhysicsContact::create();
+    plistener->onContactBegin = [=](PhysicsContact &contact){
+        log("collision detected!");
+        auto gameOverSprite = Sprite::create("game_over.png");
+        gameOverSprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2));
+        this->addChild(gameOverSprite);
+        this->isGameOver = true;
+        
+        auto restartListner = EventListenerTouchOneByOne::create();
+        restartListner->setSwallowTouches(true);
+        restartListner->onTouchBegan = [](Touch *touch, Event* event){
+            Director::getInstance()->replaceScene(HelloWorld::createScene());
+            return true;
+        };
+        Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(restartListner, gameOverSprite);
+        return true;
+    };
+    
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(plistener, this);
     this->scheduleUpdate();
     
     return true;
@@ -132,10 +160,12 @@ void HelloWorld::update(float delata) {
         topPipeSprite->setPosition(Vec2(visibleSize.width + topPipeSprite->getContentSize().width/2, 480 + arc4random() % 300));
         return;
     }
-    groundSprite0->setPosition(Vec2(curPos0.x - 2, curPos0.y));
-    groundSprite1->setPosition(Vec2(curPos1.x - 2, curPos1.y));
-    topPipeSprite->setPosition(Vec2(pipePos.x - 2, pipePos.y));
-    this->positionBottomPipe();
+    if (!this->isGameOver) {
+        groundSprite0->setPosition(Vec2(curPos0.x - 2, curPos0.y));
+        groundSprite1->setPosition(Vec2(curPos1.x - 2, curPos1.y));
+        topPipeSprite->setPosition(Vec2(pipePos.x - 2, pipePos.y));
+        this->positionBottomPipe();
+    }
 }
 
 void HelloWorld::positionBottomPipe(){

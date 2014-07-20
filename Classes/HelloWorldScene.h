@@ -34,6 +34,7 @@ public:
     
 private:
     void positionBottomPipe();
+    bool isGameOver;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
