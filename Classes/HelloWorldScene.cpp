@@ -33,6 +33,13 @@ bool HelloWorld::init()
     this->addChild(groundSprite1);
     groundSprite1->setPosition(Vec2(visibleSize.width + groundSprite1->getContentSize().width/2.0 -10, groundSprite1->getContentSize().height/2));
     
+    auto groundbody0 = PhysicsBody::createBox(groundSprite0->getContentSize());
+    groundbody0->setDynamic(false);
+    groundSprite0->setPhysicsBody(groundbody0);
+    auto groundbody1 = PhysicsBody::createBox(groundSprite1->getContentSize());
+    groundbody1->setDynamic(false);
+    groundSprite1->setPhysicsBody(groundbody1);
+    
     // SkyGround setup
     Sprite *skySprite0 = Sprite::create("flappy_background.png");
     Sprite *skySprite1 = Sprite::create("flappy_background.png");
@@ -81,6 +88,14 @@ bool HelloWorld::init()
     topPipeSprite = Sprite::create("top_pipe.png");
     bottomPipeSprite = Sprite::create("bottom_pipe.png");
     topPipeSprite->setPosition(visibleSize.width + topPipeSprite->getContentSize().width/2, 600);
+    
+    auto pipebody0 = PhysicsBody::createBox(topPipeSprite->getContentSize());
+    pipebody0->setDynamic(false);
+    topPipeSprite->setPhysicsBody(pipebody0);
+    auto pipebody1 = PhysicsBody::createBox(bottomPipeSprite->getContentSize());
+    pipebody1->setDynamic(false);
+    bottomPipeSprite->setPhysicsBody(pipebody1);
+    
     this->positionBottomPipe();
     this->addChild(topPipeSprite);
     this->addChild(bottomPipeSprite);
@@ -114,7 +129,7 @@ void HelloWorld::update(float delata) {
         return;
     }
     if (pipePos.x < -topPipeSprite->getContentSize().width / 2) {
-        topPipeSprite->setPosition(Vec2(visibleSize.width + topPipeSprite->getContentSize().width/2, 500 + arc4random() % 300));
+        topPipeSprite->setPosition(Vec2(visibleSize.width + topPipeSprite->getContentSize().width/2, 480 + arc4random() % 300));
         return;
     }
     groundSprite0->setPosition(Vec2(curPos0.x - 2, curPos0.y));
