@@ -69,9 +69,10 @@ bool HelloWorld::init()
     //pipe setup
     topPipeSprite = Sprite::create("top_pipe.png");
     bottomPipeSprite = Sprite::create("bottom_pipe.png");
-    topPipeSprite->setPosition(visibleSize.width/2, visibleSize.height - 50);
-
-    
+    topPipeSprite->setPosition(visibleSize.width/2, 600);
+    this->positionBottomPipe();
+    this->addChild(topPipeSprite);
+    this->addChild(bottomPipeSprite);
     
     this->scheduleUpdate();
     
@@ -94,5 +95,5 @@ void HelloWorld::update(float delata) {
 }
 
 void HelloWorld::positionBottomPipe(){
-    //bottomPiPeSprite->setPosition(Vec2(topPipeSprite->getPosition);
+    bottomPipeSprite->setPosition(Vec2(topPipeSprite->getPosition().x, topPipeSprite->getPosition().y - 650));
 }
