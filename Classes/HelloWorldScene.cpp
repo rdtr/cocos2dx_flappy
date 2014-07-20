@@ -4,7 +4,11 @@ USING_NS_CC;
 
 Scene* HelloWorld::createScene()
 {
-    auto scene = Scene::create();
+    auto scene = Scene::createWithPhysics();
+    scene->getPhysicsWorld()->setGravity(Vec2(0, -300));
+    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    scene->getPhysicsWorld()->setSpeed(1.5);
+    
     auto layer = HelloWorld::create();
     scene->addChild(layer);
 
@@ -65,6 +69,10 @@ bool HelloWorld::init()
     
     birdSprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 + 80));
     this->addChild(birdSprite);
+
+    auto birdBody = PhysicsBody::createCircle(17.0);
+    birdBody->setDynamic(true);
+    birdSprite->setPhysicsBody(birdBody);
     
     //pipe setup
     topPipeSprite = Sprite::create("top_pipe.png");
